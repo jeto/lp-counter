@@ -1,0 +1,20 @@
+{
+  "name": "LP Counter",
+  "short_name": "Counter",
+  "start_url": ".",
+  "background_color": "white",
+  "theme_color": "#9d5d49",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "images/logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

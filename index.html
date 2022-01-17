@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#9d5d49">
+    <title>Counter</title> 
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="images/logo192.png">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <a id="menu" onclick="toggleMenu()">...</a>
+    <h1 id="count"></h1>
+    <button id="increment" class="mainbutton" onclick="increment()">+</button>
+		<button id="decrement" class="mainbutton" onclick="decrement()">-</button>
+    <div id="counts" style="visibility: hidden;">
+      <ol id="list">
+      </ol>
+    </div>
+    <script src="script.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
