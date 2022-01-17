@@ -3,22 +3,23 @@ html,body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow-y: hidden;
+    overflow-x: hidden;
     text-align: center;
+    touch-action: none;
 }
 
 h1 {
-  font-size: 140pt;
+  font-size: 10em;
 }
 
 .mainbutton {
-  width: 30%;
-  height: 20%;
-  font-size: 36pt;
+  width: 3em;
+  height: 3em;
+  font-size: 3em;
   padding: 0;
 }
 
-#counts {
+.log {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -27,19 +28,37 @@ h1 {
   height: 70%;
   overflow: scroll;
   background: rgba(157, 93, 73, 0.9);
-  font-size: 16pt;
+  font-size: 1.5em;
   border-radius: 1em;
   box-sizing: border-box;
   padding: 1em;
+  touch-action: none;
 }
 
 #menu {
-  font-size: 24pt;
+  font-size: 2em;
   position: fixed;
   top: 2%;
   right: 5%;
   user-select: none;
   cursor: pointer;
+}
+
+#add {
+  color:white;
+  background: rgba(157, 93, 73, 1);
+  font-size: 2em;
+  position: fixed;
+  top: 3%;
+  left: 5%;
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  border-radius: 2em;
+  width: 2em;
+  height: 2em;
+  justify-content: center;
+  align-items: center;
 }
 
 .delete {
@@ -49,4 +68,22 @@ h1 {
 
 li {
   text-align: left;
+}
+
+#count-one {
+  height: 100%;
+}
+
+#count-two {
+  height: 100%;
+}
+
+#flex-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-child {
+  flex: 1;
+  width: 100%;
 }
