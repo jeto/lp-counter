@@ -2,8 +2,6 @@
 
 let keys = Object.keys(localStorage).sort()
 
-let showCount = 0
-
 function drawCounts() {
   console.log("drawingcounts")
   keys = Object.keys(localStorage).sort()
@@ -22,7 +20,9 @@ function drawCounts() {
 function drawCountElement(id, i) {
   const container = document.getElementById("flex-container")
   arr = JSON.parse(localStorage.getItem(id))
-  const title = document.createElement("h3")
+  const title = document.createElement("h2")
+  title.className = `title title-${id}`
+  title.setAttribute("onClick", `javascript: toggleMenu("${id}")`)
   title.innerHTML = id
   const countElem = document.createElement("div")
   countElem.id = `count-${id}`
@@ -80,7 +80,6 @@ function addCount() {
     drawCounts()
     const newCount = document.getElementById(`count-${name}`)
     newCount.scrollIntoView({behavior: "smooth"})
-    showCount = newCount.className.match(/count-(\d)*/)[1]
   }
 }
 
@@ -107,8 +106,9 @@ function remove(id, timestamp) {
   }
 }
 
-function toggleMenu() {
-  const logDiv = document.getElementsByClassName(`log-${showCount}`)[0]
+
+function toggleMenu(id) {
+  const logDiv = document.getElementById(`log-${id}`)
   if (logDiv.style.visibility === "hidden") {
     logDiv.style.visibility = "visible"
   } else {
@@ -123,80 +123,24 @@ function closeLogs() {
   }
 }
 
-let ticking = false
-let waiting = false
-let prevDelta = 0
-
-function debounce(delay, f) {
-  let timer
-  return function (...args) {
-    if (timer) {
-      clearTimeout(timer)
+document.addEventListener(
+  "click",
+  function(event) {
+    // If user either clicks X button OR clicks outside the modal window, then close modal by calling closeModal()
+    if (!event.target.matches(".title") && !event.target.closest(".log")) {
+      closeLogs()
     }
-    timerId = setTimeout(() => {
-      f(...args)
-      timer = null
-    }, delay);
-  }
-}
-const wheelHandler = (e) => {
-  e.preventDefault()
-  e.stopPropagation()
+  },
+  false
+)
 
-  if (!ticking) {
-    window.requestAnimationFrame(function() {
-      if (prevDelta < Math.abs(e.deltaX) && !waiting) {
-        waiting = true
-        console.log(e.deltaX)
-        console.log(e.deltaY)
-        let biggerDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY
-        if (biggerDelta > 0) {
-          if (showCount<keys.length-1) {
-            closeLogs()
-            showCount++
-            document.getElementsByClassName(`count-${showCount}`)[0].scrollIntoView({behavior: "smooth"})
-            
-          }
-        } else if (e.deltaX < 0 || e.deltaY < 0){
-          if (showCount>0) {
-            closeLogs()
-            showCount--
-            document.getElementsByClassName(`count-${showCount}`)[0].scrollIntoView({behavior: "smooth"})
-          }
-        }
-        setTimeout(() => {
-          waiting = false
-        }, 300);
-      }
-      prevDelta = Math.abs(e.deltaX)
-      ticking = false;
-    })
-  } 
-  ticking = true
-}
-const debounceHandler = debounce(200, wheelHandler)
-document.addEventListener("wheel", wheelHandler, { passive: false })
-
-
-let xStart = null
-let xEnd = null
-document.addEventListener("touchstart", function(e) {
-  xStart = e.changedTouches[0].screenX
-}, false)
-document.addEventListener("touchend", function(e) {
-  xEnd = e.changedTouches[0].screenX
-  if (Math.abs(xStart - xEnd)>10) {
-    closeLogs()
-    if (xStart > xEnd) {
-      if (showCount<keys.length-1) {
-        showCount++
-        document.getElementsByClassName(`count-${showCount}`)[0].scrollIntoView({behavior: "smooth"})
-      }
-    } else {
-      if (showCount>0) {
-        showCount--
-        document.getElementsByClassName(`count-${showCount}`)[0].scrollIntoView({behavior: "smooth"})
-      }
+document.addEventListener(
+  "touchmove",
+  function(event) {
+    if (!event.target.closest(".log")) {
+      console.log("touchevent")
+      closeLogs()
     }
-  }
-  },false)
+  },
+  false
+)
