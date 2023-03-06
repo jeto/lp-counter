@@ -1,9 +1,6 @@
-// let counts = JSON.parse(localStorage.getItem("counts")) ?? []
-
 let keys = Object.keys(localStorage).sort()
 
 function drawCounts() {
-  console.log("drawingcounts")
   keys = Object.keys(localStorage).sort()
   const container = document.getElementById("flex-container")
   container.style.width = `${keys.length*100}%`
@@ -104,6 +101,7 @@ function increment(id) {
   updateCount(id)
 }
 
+// Remove single entry
 function remove(id, timestamp) {
   let counts = JSON.parse(localStorage.getItem(id))
   const date = new Date(timestamp).toLocaleString()
@@ -114,6 +112,7 @@ function remove(id, timestamp) {
   }
 }
 
+// Remove whole count element and its entries
 function removeCount(id) {
   if (confirm(`Do you want to delete ${id}?`) == true) {
     localStorage.removeItem(id)
@@ -138,10 +137,10 @@ function closeLogs() {
   }
 }
 
+// Close logs if clicking or touching outside log element
 document.addEventListener(
   "click",
   function(event) {
-    // If user either clicks X button OR clicks outside the modal window, then close modal by calling closeModal()
     if (!event.target.matches(".title") && !event.target.closest(".log")) {
       closeLogs()
     }
@@ -153,7 +152,6 @@ document.addEventListener(
   "touchmove",
   function(event) {
     if (!event.target.closest(".log")) {
-      console.log("touchevent")
       closeLogs()
     }
   },
