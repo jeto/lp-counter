@@ -54,8 +54,16 @@ function drawLogElement(id, i) {
 function drawLogs(id) {
   let logs = JSON.parse(localStorage.getItem(id))
   const logContainer = document.getElementById(`log-${id}`)
+  const title = document.createElement("span")
+  title.innerHTML = id
+  const remove = document.createElement("span")
+  remove.className = "delete"
+  remove.innerHTML = "&#128465;"
+  remove.setAttribute("onClick", `javascript: removeCount("${id}")`)
   let ol = document.createElement("ol")
   logContainer.innerHTML = ""
+  logContainer.appendChild(title)
+  logContainer.appendChild(remove)
   logContainer.appendChild(ol)
   for(timestamp of logs) {
     const date = new Date(timestamp).toLocaleString()
@@ -106,6 +114,13 @@ function remove(id, timestamp) {
   }
 }
 
+function removeCount(id) {
+  if (confirm(`Do you want to delete ${id}?`) == true) {
+    localStorage.removeItem(id)
+    closeLogs()
+    drawCounts()
+  }
+}
 
 function toggleMenu(id) {
   const logDiv = document.getElementById(`log-${id}`)
