@@ -1,6 +1,8 @@
+const cacheName = "cache_v1"
+
 self.addEventListener("install", e => {
   e.waitUntil(
-    caches.open("static").then(cache => {
+    caches.open(cacheName).then(cache => {
       return cache.addAll(["./", "./images/logo192.png"])
     })
   )
