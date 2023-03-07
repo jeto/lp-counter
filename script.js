@@ -79,7 +79,7 @@ function drawLogs(id) {
 drawCounts()
 
 function addCount() {
-  const name = prompt("Add new count")
+  const name = prompt("Name for new counter")
   if (name && !keys.includes(name)) {
     localStorage.setItem(name, JSON.stringify([]))
     drawCounts()
